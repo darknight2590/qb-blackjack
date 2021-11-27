@@ -1294,10 +1294,19 @@ function ProcessTables()
 
 				if #(GetEntityCoords(PlayerPedId()) - vector3(cord.x, cord.y, cord.z)) < 3.0 then
 					local pCoords = GetEntityCoords(PlayerPedId())
-					local tableObj = GetClosestObjectOfType(pCoords, 1.0, `vw_prop_casino_3cardpoker_01`, false, false, false)
-
-					if GetEntityCoords(tableObj) == vector3(0.0, 0.0, 0.0) then
-						tableObj = GetClosestObjectOfType(pCoords, 1.0, `vw_prop_casino_3cardpoker_01`, false, false, false)
+					local tableObj = 0
+					local  TableModels = {     
+						`vw_prop_casino_3cardpoker_01`,
+						`vw_prop_casino_3cardpoker_01b`,
+						`vw_prop_casino_blckjack_01`,
+						`vw_prop_casino_blckjack_01b`
+					}
+					for i = 1 , #TableModels do
+						local model = TableModels[i]
+						tableObj = GetClosestObjectOfType(pCoords, 1.0, model, false, false, false)
+						if GetEntityCoords(tableObj) ~= vector3(0.0, 0.0, 0.0) then
+							break
+						end
 					end
 
 					if GetEntityCoords(tableObj) ~= vector3(0.0, 0.0, 0.0) then
